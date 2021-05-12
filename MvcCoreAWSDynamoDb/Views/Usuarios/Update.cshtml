@@ -1,0 +1,72 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Update";
+    List<Fotos> fotos = ViewData["FOTO"] as List<Fotos>;
+}
+
+<h1>Update</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdUsuario" class="control-label"></label>
+                <input asp-for="IdUsuario" class="form-control" />
+                <span asp-validation-for="IdUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fechaalta" class="control-label"></label>
+                <input asp-for="fechaalta" class="form-control" />
+                <span asp-validation-for="fechaalta" class="text-danger"></span>
+            </div>
+            <div>
+                <div>
+                    ¿Desea elminar las imagenes Imagenes?<input type="checkbox"
+                                                                value="delete" name="accion" class="form-control" /> <br />
+                    <ul class="list-group">
+                        @foreach (Fotos foto in fotos)
+                        {
+                            <li class="list-group-item">
+                                <label>@foto.Imagen</label>
+                                <input type="checkbox" name="fotoseliminar" value="@foto.Imagen" class="form-control" />
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div>
+                    <label>Titulo</label>
+                    <input type="text" name="titulo" value="@fotos[0].Titulo" class="form-control">
+                </div>
+                <div>
+                    <label>Imagenes</label>
+                    <input type="file" name="files" multiple class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
